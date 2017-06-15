@@ -5,8 +5,7 @@
 #include<vector>
 #include<cstdlib>
 #include<thread>
-#include<cstdio>
-#include<ctime>
+#include<chrono>
 
 const int numThreads = 2;
 
@@ -89,15 +88,16 @@ int generateAndEvaluateDeterminant(int n) {
 
 int main(int argc, char **argv)
 {
-    clock_t start;	
-    double duration;
-    start = clock();
+    auto start = std::chrono::high_resolution_clock::now();	
 
     int n;
     cin >> n;
-    cout << generateAndEvaluateDeterminant(n);
+    cout << generateAndEvaluateDeterminant(n) << endl;
 
-    duration = (clock() - start) / (double) CLOCKS_PER_SEC;
-    cout << "TIMEEEEE: " << duration << endl;
+    auto finish = std::chrono::high_resolution_clock::now();	
+    cout << "TIMEEEEE: " 
+	<< std::chrono::duration_cast<std::chrono::milliseconds>(finish - start)
+	.count()
+        << " milliseconds" << std::endl;
     return 0;
 }
