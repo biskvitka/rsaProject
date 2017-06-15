@@ -4,7 +4,7 @@
 #include<math.h>
 #include<vector>
 #include<cstdlib>
-//#include<thread>
+#include<thread>
 
 const int numThreads = 2;
 
