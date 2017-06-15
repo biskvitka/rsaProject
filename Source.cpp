@@ -5,6 +5,8 @@
 #include<vector>
 #include<cstdlib>
 #include<thread>
+#include<cstdio>
+#include<ctime>
 
 const int numThreads = 2;
 
@@ -87,10 +89,15 @@ int generateAndEvaluateDeterminant(int n) {
 
 int main(int argc, char **argv)
 {
-	int n;
-	cin >> n;
-	cout << generateAndEvaluateDeterminant(n);
-	int pkp;
-	cin >> pkp;
-	return 0;
+    clock_t start;	
+    double duration;
+    start = clock();
+
+    int n;
+    cin >> n;
+    cout << generateAndEvaluateDeterminant(n);
+
+    duration = (clock() - start) / (double) CLOCKS_PER_SEC;
+    cout << "TIMEEEEE: " << duration << endl;
+    return 0;
 }
