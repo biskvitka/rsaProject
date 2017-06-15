@@ -4,12 +4,11 @@
 #include<math.h>
 #include<vector>
 #include<cstdlib>
-#include<thread>
+//#include<thread>
 
 const int numThreads = 2;
 
 using namespace std;
-long long d = 0;
 
 
 void matrixInit (int** &matrix, int size) {
@@ -51,13 +50,13 @@ void matrixDealloc (int size, int** &matrix) {
 
 int det(int n, int** &mat) {
 
+    long long d = 0;
 	if (n == 2) {
 		return ((mat[0][0] * mat[1][1]) - (mat[1][0] * mat[0][1]));
 	} else if (n > 2) {
-		int** smallerMatrix = matrixAlloc(n-1); 
-        long long a;
 		for (int i = 0; i < n; i++)
 		{
+		    int** smallerMatrix = matrixAlloc(n-1); 
             for (int row = 0; row < n; row++) {
                 if ( i == row) {
                     continue;
@@ -70,13 +69,9 @@ int det(int n, int** &mat) {
                     }
                 }
             }
-            cout << "new matrix" << endl;
-            a = det(n - 1, smallerMatrix);
-			d = d + (pow(-1, i) * mat[i][0] * a);
+			d = d + (pow(-1, i) * mat[i][0] * det(n - 1, smallerMatrix));
+            matrixDealloc(n - 1, smallerMatrix);
 		}
-        coutMatrix(smallerMatrix, n-1);
-        cout <<"matrix value" << a << endl; 
-        matrixDealloc(n - 1, smallerMatrix);
 	}
 	return d;
 }
